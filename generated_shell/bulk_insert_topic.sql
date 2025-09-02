@@ -1,0 +1,1 @@
+\COPY geeknews_topic FROM ${BULK_INSERT_FILE} WITH (FORMAT csv);
