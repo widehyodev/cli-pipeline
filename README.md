@@ -57,12 +57,6 @@ This pipeline scrapes articles from news.hada.io, extracts content using multipl
 - **parallel** (GNU parallel) - Parallel processing
 - **yq** - YAML/XML processing
 
-### System Requirements
-- Linux/Unix environment
-- Minimum 4GB RAM (8GB+ recommended for large datasets)
-- 10GB+ available disk space
-- Optional: TMPFS mount for performance optimization
-
 ## 📦 Installation
 
 ### 1. Clone Repository
@@ -241,20 +235,6 @@ The pipeline automatically detects and uses TMPFS for temporary files:
   Size: 8.0G, Available: 7.2G
 ```
 
-### Processing Strategies Comparison
-
-| Method | Speed | Memory Usage | Reliability | Best For |
-|--------|-------|--------------|-------------|----------|
-| Parallel | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐ | High-performance systems |
-| Xargs | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ | General use |
-| Sequential | ⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | Large datasets, limited resources |
-
-### Performance Tips
-1. **Use TMPFS**: Mount tmpfs for temporary files
-2. **Adjust Parallelism**: Modify `nproc` based on system capabilities
-3. **Monitor Memory**: Watch memory usage during processing
-4. **Disk Space**: Ensure adequate space for intermediate files
-
 ## 📄 Output Formats
 
 ### CSV Structure
@@ -279,7 +259,7 @@ Using regular filesystem - performance may be slower
 **Solution**: Create and mount TMPFS:
 ```bash
 sudo mkdir -p /tmp/tmpfs
-sudo mount -t tmpfs -o size=8G tmpfs /tmp/tmpfs
+sudo mount -t tmpfs -o size=1G tmpfs /tmp/tmpfs
 ```
 
 #### Rate Limiting
@@ -331,15 +311,6 @@ make 9_clean_csv
 ## 📝 License
 
 This project is licensed under the terms specified in the LICENSE file.
-
-## 📊 Performance Metrics
-
-Typical performance on a modern system (8 cores, 16GB RAM, SSD):
-- **Sitemap processing**: ~30 seconds
-- **HTML download**: ~2-4 hours (depending on rate limits)
-- **HTML parsing**: ~15-30 minutes (parallel mode)
-- **Content conversion**: ~45-90 minutes (parallel mode)
-- **CSV cleaning**: ~5-10 minutes
 
 ---
 
